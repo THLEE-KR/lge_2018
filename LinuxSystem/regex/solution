@@ -1,0 +1,11 @@
+1. grep NW datafile
+2. grep '^n' datafile
+3. grep '4$' datafile
+4. grep 'TB Savage' datafile
+5. grep '5\..' datafile
+6. grep '\.5' datafile
+7. grep '^[we]' datafile
+8. grep 'ss* ' datafile
+9. grep '[a-z]\{9\}' datafile
+10. grep '[A-Z][A-Z] [A-Z]' datafile
+11. grep -E '^north|\snorth' datafile
