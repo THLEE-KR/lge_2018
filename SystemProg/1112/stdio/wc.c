@@ -17,8 +17,11 @@ int main(int argc, char **argv)
 	fp = fopen(argv[1], "r");
 	while ((ch = fgetc(fp)) != EOF) {
 		char_cnt++;
-		if (ch == '\n')
+		putchar(ch);
+		if (ch == '\n') {
+			printf("huk\n");
 			++line_cnt;
+		}
 
 		// if (ch != '\n' && ch != ' ' && ch != '\t')
 		if (!isspace(ch)) {
