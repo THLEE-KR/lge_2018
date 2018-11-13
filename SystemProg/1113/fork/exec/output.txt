@@ -1,0 +1,11 @@
+합계 52
+-rwxr-xr-x 1 root root 8864 11월 13 14:18 a.out
+-rw-r--r-- 1 root root  664 11월 13 14:09 exec.c
+-rw-r--r-- 1 root root  185 11월 13 13:45 exec2.c
+-rw-r--r-- 1 root root  298 11월 13 13:48 exec3.c
+-rw-r--r-- 1 root root  347 11월 13 13:53 exec4.c
+-rw-r--r-- 1 root root  406 11월 13 14:18 exec5.c
+-rw-r--r-- 1 root root   78 11월 13 13:47 hello.c
+-rw-r--r-- 1 root root    0 11월 13 14:18 output.txt
+-rwxr-xr-x 1 root root 8712 11월 13 13:47 prog
+-rw-r--r-- 1 root root  102 11월 13 13:22 system.c
