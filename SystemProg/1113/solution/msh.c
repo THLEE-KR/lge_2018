@@ -15,6 +15,10 @@
 void run_command(int argc, char** argv);
 int parse_command(char* buf, int* argc, char** argv);
 
+// cd: 쉘 적용되는 명령어
+// 일반 프로그램
+//   : 자식 프로세스 + exec 
+
 int main()
 {
 	char buf[1024];
@@ -24,6 +28,7 @@ int main()
 	while (1)
 	{
 		char path[256];
+		// pwd -> getcwd
 		getcwd(path, sizeof path);
 
 		printf("[%s]> ", path);
@@ -79,28 +84,6 @@ void run_command(int argc, char** argv)
 	{
 		exit(0);
 	}	
-}
-
-void run_command_stdio_to_file(char** argv, char* filename)
-{
-	pid_t pid = fork();
-	if (pid == 0)
-	{
-		int fd = open(filename, O_WRONLY | O_CREAT, 0644);
-		dup2(fd, 1);
-
-		execvp(argv[0], argv);
-		perror("execvp");
-		exit(0);
-	}
-	else if (pid > 0)
-	{
-		wait(0);
-	}
-	else
-	{
-		perror("fork");
-	}
 }
 
 int parse_command(char* buf, int* argc, char** argv)
