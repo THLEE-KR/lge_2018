@@ -34,7 +34,7 @@ long RecvMQ(int qid, long mtype, MSG_t *msg)
     int st;
 
     /* msgrcv() : Return recv bytes if OK, -1 on error */
-    st = msgrcv(qid, msg,sizeof(MSG_t)- sizeof(long), 
+    st = msgrcv(qid, msg, sizeof(MSG_t)- sizeof(long), 
                 mtype, IPC_NOWAIT);
     if(st < 0)
         return -1L;
