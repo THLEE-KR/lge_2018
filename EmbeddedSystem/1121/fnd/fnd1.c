@@ -66,9 +66,22 @@ int main() {
 		pinMode(led[i], OUTPUT);
 	}
 	
-	show_digit(1, 3);
-	show_digit(2, 5);
+	while (1) {
+		show_digit(1, 4);
+		delay(1);
+		show_digit(2, 2);
+		delay(1);
+		show_digit(3, 3);
+		delay(1);
+	}
 }
+
+
+
+
+
+
+
 
 
 
