@@ -3,12 +3,9 @@
 #include <string.h>
 #include <wiringPi.h>
 
-int pin[4] = { 27, 24, 28, 29 };
-//             16, 19, 20, 21     // BCM
+#include <pthread.h>
 
-// 1-2상 여자 동작입니다.
-//  => 한 스텝의 동작은 자석이 45도 회전합니다.
-//  => 모터의 회전은 약 1.8도 회전합니다. 
+int pin[4] = { 27, 24, 28, 29 };
 int seq[8][4] = {
 	{ 1,0,0,1 },
 	{ 1,0,0,0 },
@@ -46,9 +43,24 @@ void backwards(int count) {
 	}
 }
 
+int flag = 1;
+void *thread_routine(void *a) {
+	int i, j, k;
+
+	while (1) {
+		for (j = 0; j < 8; ++j) {
+			for (k = 0; k < 4; ++k) {
+				int index = flag ? j : 7 - j;
+				digitalWrite(pin[k], seq[index][k]);
+			}
+			delayMicroseconds(800);
+		}
+	}
+}
+
 int main() {
 	int i;
-	int flag = 1;
+	pthread_t thread;
 	wiringPiSetup();
 
 	// OUTPUT 모드로 지정하면 됩니다.
@@ -56,39 +68,12 @@ int main() {
 		pinMode(pin[i], OUTPUT);
 	}
 
+	pthread_create(&thread, NULL, thread_routine, NULL);
 	while (1) {
-		if (flag == 1) {
-		 	forwards(1024);
-		} else { 
-			backwards(1024);
-		}
-
 		getchar();
 		flag = !flag;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
