@@ -1,9 +1,11 @@
+#include <mcp3422.h>    // ADC
+#include <pthread.h>
+
+#include <wiringPi.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
-#include <wiringPi.h>
 
-#include <pthread.h>
+#define TMP36 401
 
 int led[8] = {11, 10, 13, 12, 14, 15, 16, 0};
 int num[10] = {
@@ -72,20 +74,27 @@ void init_fnd() {
 	}
 }
 
-int main() {
+int main()
+{
 	pthread_t thread;
-	srand(time(0));
 
 	wiringPiSetup();
 	init_fnd();
+	mcp3422Setup(400, 0x6a, 0, 0); 
 
 	pthread_create(&thread, NULL, fnd_thread, NULL);
-	while (getchar() != EOF) {
-		value = rand() % 1000;
-		printf("value: %d\n", value);
-	}
 
-	is_stopped = 1;
-	pthread_join(thread, NULL);
-	return 0;
+	while (1) {
+		int reading = analogRead(TMP36);
+		double voltage = reading / 1000.;
+		double temp = (voltage - 0.5) * 100;
+		value = temp;
+		delay(1000);
+	}
 }
+
+
+
+
+
+
