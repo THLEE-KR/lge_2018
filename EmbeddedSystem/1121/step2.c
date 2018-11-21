@@ -43,7 +43,7 @@ void backwards(int count) {
 	}
 }
 
-int flag = 1;
+volatile int flag = 1;
 void *thread_routine(void *a) {
 	int i, j, k;
 
@@ -56,6 +56,8 @@ void *thread_routine(void *a) {
 			delayMicroseconds(800);
 		}
 	}
+
+	return 0;
 }
 
 int main() {
@@ -67,7 +69,7 @@ int main() {
 	for (i = 0; i < 4; ++i) {
 		pinMode(pin[i], OUTPUT);
 	}
-
+ 
 	pthread_create(&thread, NULL, thread_routine, NULL);
 	while (1) {
 		getchar();
