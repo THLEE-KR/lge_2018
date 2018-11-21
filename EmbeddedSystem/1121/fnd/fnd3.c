@@ -2,23 +2,28 @@
 #include <wiringPi.h>
 #include <string.h>
 
+// 1. fnd에 표시하는 동작은 계속해서 수행되어야 한다.
+//  => 별도의 스레드를 만들어서 처리하자.
 int led[8] = { 11, 10, 13, 12, 14, 15, 16, 0 };
-int num[10][8] = {
-	{ 1, 1, 1, 1, 1, 1, 0, 0 },
-	{ 0, 1, 1, 0, 0, 0, 0, 0 },
-	{ 1, 1, 0, 1, 1, 0, 1, 0 },
-	{ 1, 1, 1, 1, 0, 0, 1, 0 },
-	{ 0, 1, 1, 0, 0, 1, 1, 0 },
-	{ 1, 0, 1, 1, 0, 1, 1, 0 },
-	{ 1, 0, 1, 1, 1, 1, 1, 0 },
-	{ 1, 1, 1, 0, 0, 0, 0, 0 },
-	{ 1, 1, 1, 1, 1, 1, 1, 0 },
-	{ 1, 1, 1, 1, 0, 1, 1, 0 }
+
+// 2. fnd의 각 번호에 따른 상태를 비트열로 관리하면 좋다.
+int num[10] = {
+	0xFC,
+	0x60,
+	0xDA,
+	0xF2,
+	0x66,
+	0xB6,
+	0xBE,
+	0xE0,
+	0xFE,
+	0xF6,
 };
 
 void show_digit(int select, int value) {
 	int i, j;
-	int *arr = num[value];
+	// int *arr = num[value];
+	int n = num[value];
 
 	// digitalWrite(select, HIGH); 
 	for (i = 1; i <= 3; ++i) {
@@ -26,7 +31,7 @@ void show_digit(int select, int value) {
 	}
 	
 	for (i = 0; i < 8; ++i) {
-		digitalWrite(led[i], arr[i]);
+		digitalWrite(led[i], n & (1 << (7-i)));  // !!
 	}
 }
 
