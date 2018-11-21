@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define CDS   400
 #define TMP36 401
 
 int led[8] = {11, 10, 13, 12, 14, 15, 16, 0};
@@ -40,6 +41,7 @@ void show_digit(int select, int value, int dot) {
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 volatile int is_stopped = 0;
 char* value;
+int mode = 0;
 void *fnd_thread(void *arg) {
 	int i;
 	int n;
@@ -81,6 +83,18 @@ void init_fnd() {
 	}
 }
 
+double get_temp() {
+	int reading = analogRead(TMP36);
+	double voltage = reading / 1000.;
+	double temp = (voltage - 0.5) * 100;
+
+	return temp;
+}
+
+int get_cds() {
+	return analogRead(CDS);
+}
+
 int main()
 {
 	pthread_t thread;
@@ -93,14 +107,19 @@ int main()
 	char buf[128];
 
 	while (1) {
-		int reading = analogRead(TMP36);
-		double voltage = reading / 1000.;
-		double temp = (voltage - 0.5) * 100;
-		sprintf(buf, "%.1lf", temp);
-		printf("%s\n", buf);
+		getchar();
+		mode = !mode;
+
+		if (mode == 0) {
+			double temp = get_temp();
+			sprintf(buf, "%04.1lf", temp);
+			printf("temp: %s\n", buf);
+		} else {
+			sprintf(buf, "%04.1lf", (get_cds() / 2048.) * 100);
+			printf("cds: %s\n", buf);
+		}
 
 		value = buf;
-		// delay(1000);
 	}
 }
 
