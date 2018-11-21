@@ -13,6 +13,7 @@ int led[8] = { 11, 10, 13, 12, 14, 15, 16, 0 };
 // int led[8] = { 7, 8, 9, 10, 11, 14, 15, 17 };
 
 // a  b  c  d  e  f  g  dot
+#if 0
 int num[10][8] = {
 	{ 0, 0, 0, 0, 0, 0, 1, 1 },
 	{ 1, 0, 0, 1, 1, 1, 1, 1 },
@@ -25,15 +26,31 @@ int num[10][8] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 1 },
 	{ 0, 0, 0, 0, 1, 0, 0, 1 }
 };
+#endif
+int num[10][8] = {
+	{ 1, 1, 1, 1, 1, 1, 0, 0 },
+	{ 0, 1, 1, 0, 0, 0, 0, 0 },
+	{ 1, 1, 0, 1, 1, 0, 1, 0 },
+	{ 1, 1, 1, 1, 0, 0, 1, 0 },
+	{ 0, 1, 1, 0, 0, 1, 1, 0 },
+	{ 1, 0, 1, 1, 0, 1, 1, 0 },
+	{ 1, 0, 1, 1, 1, 1, 1, 0 },
+	{ 1, 1, 1, 0, 0, 0, 0, 0 },
+	{ 1, 1, 1, 1, 1, 1, 1, 0 },
+	{ 1, 1, 1, 1, 0, 1, 1, 0 }
+};
 
-void show_digit(int value) {
+void show_digit(int select, int value) {
 	int i, j;
 	int *arr = num[value];
 
-	digitalWrite(1, HIGH); 
+	// digitalWrite(select, HIGH); 
+	for (i = 1; i <= 3; ++i) {
+		digitalWrite(i, i == select);
+	}
 	
 	for (i = 0; i < 8; ++i) {
-		digitalWrite(led[i], !arr[i]);
+		digitalWrite(led[i], arr[i]);
 	}
 }
 
@@ -41,13 +58,16 @@ int main() {
 	int i;
 	wiringPiSetup();
 	
-	pinMode(1, OUTPUT);
+	for (i = 1; i <= 3; ++i) {
+		pinMode(i, OUTPUT);
+	}
 
 	for (i = 0; i < 8; ++i) {
 		pinMode(led[i], OUTPUT);
 	}
 	
-	show_digit(9);
+	show_digit(1, 3);
+	show_digit(2, 5);
 }
 
 
