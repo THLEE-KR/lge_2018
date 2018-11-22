@@ -8,7 +8,8 @@
 #include "ssd1306_i2c.h"
 
 int main() {
-	char str[32] = "Hello, RaspPi";
+	char str[32] = " Hello, Pi";
+	str[0] = 95 + 32;
 
 	int fd = ssd1306I2CSetup(0x3C);  // i2c address를 인자로 전달하면 됩니다.
 	displayOn(fd);
