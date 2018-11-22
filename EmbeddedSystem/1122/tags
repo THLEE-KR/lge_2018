@@ -1,0 +1,25 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+SSD1306_CONTROL_REG	ssd1306_i2c.h	76;"	d
+SSD1306_DATA_REG	ssd1306_i2c.h	77;"	d
+SSD1306_DISPLAYOFF	ssd1306_i2c.h	70;"	d
+SSD1306_DISPLAYON	ssd1306_i2c.h	69;"	d
+SSD1306_I2C_H	ssd1306_i2c.h	11;"	d
+SSD1306_INVERTDISPLAY	ssd1306_i2c.h	72;"	d
+SSD1306_MULTIPLEX_RATIO	ssd1306_i2c.h	73;"	d
+SSD1306_NORMALDISPLAY	ssd1306_i2c.h	71;"	d
+clearDisplay	ssd1306_i2c.c	/^void clearDisplay(int fd)$/;"	f
+displayOff	ssd1306_i2c.c	/^void displayOff(int fd)$/;"	f
+displayOn	ssd1306_i2c.c	/^void displayOn(int fd)$/;"	f
+draw	ssd1306_i2c.c	/^void draw(int x, int y, unsigned char ascii){$/;"	f
+draw_line	ssd1306_i2c.c	/^void draw_line(int x ,int y,unsigned char ascii_str[16]){$/;"	f
+frame	ssd1306_i2c.c	/^unsigned char frame[1024];  \/\/ define array for memory mapping$/;"	v
+main	hello.c	/^int main() {$/;"	f
+sendCommand	ssd1306_i2c.c	/^void sendCommand(int fd, unsigned char command)$/;"	f
+sendData	ssd1306_i2c.c	/^void sendData(int fd, unsigned char data)$/;"	f
+ssd1306I2CSetup	ssd1306_i2c.c	/^int ssd1306I2CSetup(unsigned char i2cAddr)$/;"	f
+updateDisplay	ssd1306_i2c.c	/^void updateDisplay(int fd)$/;"	f
