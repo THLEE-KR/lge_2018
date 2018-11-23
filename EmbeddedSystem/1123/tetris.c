@@ -8,6 +8,9 @@
 #include <mcp3422.h>
 #include <stdio.h>
 
+#define SW1 4
+#define SW2 5
+
 typedef  unsigned char byte;
 
 #define OLED_CONTROL	        	0x00 
@@ -275,6 +278,9 @@ int main()
 		setNextBlock(nextPiece);
 		delay(100);
 	}
+
+	pinMode(4, INPUT);
+	pinMode(5, INPUT);
 
 	while (!gameOver) {
 		movePieceDown();
@@ -1003,6 +1009,14 @@ int processKeys() {
 		dpadpos = 0;
 	}
 	curr_pos = reading;
+
+	if (digitalRead(SW1) == LOW) {
+		RotatePiece();
+	} 
+
+	if (digitalRead(SW2) == LOW) {
+		movePieceDown();
+	}
 
 	switch(dpadpos) {
 		case KEY_LEFT:
